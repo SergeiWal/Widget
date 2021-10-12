@@ -7,16 +7,17 @@ const style = {
 };
 
 export default function Item(props) {
-  let [check, setCheck] = useState(true);
+  const [check, setCheck] = useState(true);
   return (
     <div style={style}>
       <input
         type="checkbox"
         onChange={() => {
           setCheck(!check);
+          props.isChecked(check);
         }}
       />
-      Item {props.number}
+      {props.content}
     </div>
   );
 }
