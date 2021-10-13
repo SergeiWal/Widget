@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-
-const style = {
-  background: "#ccc",
-  width: "200px",
-  margin: "10px 0px",
-};
+import styles from "./styles";
 
 export default function Item(props) {
   const [check, setCheck] = useState(true);
   return (
-    <div style={style}>
+    <div style={styles.item}>
       <input
         type="checkbox"
         onChange={() => {

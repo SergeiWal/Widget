@@ -1,50 +1,43 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import ItemsList from "./itemsList";
-import Item from "./item";
-import ItemView from "./itemsView";
+import ItemsView from "./selectedItemList";
+import { itemsContext } from "./app";
+import ItemsViewList from "./selectedItemList";
+import styles from "./styles";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 600,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+const itemsArray = [];
+for (let i = 1; i < 1000; ++i) {
+  itemsArray.push(`Item ${i}`);
+}
 
-const tools = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-};
+export default function WidgetModal(props) {
+  const onSave = props.onSave;
+  const resultArray = props.resultArray;
 
-const iconStyle = {
-  color: "black",
-};
+  const [open, setOpen] = useState(false);
+  const [baseArr, setBaseArr] = useState(itemsArray);
+  const [selectedArr, setSelectedArr] = useState([...resultArray]);
 
-const input = {
-  fontSize: "18px",
-  height: "10px",
-  padding: "0px",
-};
-
-const itemsList = {
-  height: "200px",
-  scrollBehavior: "smooth",
-};
-
-export default function WidgetModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+    setSelectedArr([...resultArray]);
+  };
   const handleClose = () => setOpen(false);
+  const onAddHandler = (e) => {
+    setSelectedArr([...selectedArr, e]);
+  };
+  const onRemoveHandler = (e) => {
+    const id = selectedArr.findIndex((item) => item === e);
+    if (id != -1) {
+      selectedArr.splice(id, id + 1);
+      setSelectedArr([...selectedArr]);
+    }
+  };
 
   return (
     <div>
@@ -57,16 +50,16 @@ export default function WidgetModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <div style={tools}>
+        <Box sx={styles.modal}>
+          <div style={styles.tools}>
             <div className="headerTitle">Dialod title</div>
             <div className="headerButton">
               <Button onClick={handleClose}>
-                <CloseIcon style={iconStyle} />
+                <CloseIcon style={styles.icons} />
               </Button>
             </div>
           </div>
-          <div style={tools}>
+          <div style={styles.tools}>
             <div className="searchline">
               <TextField
                 id="outlined-basic"
@@ -84,18 +77,35 @@ export default function WidgetModal() {
               />
             </div>
           </div>
-          <div>
-            <ItemsList />
+          <div style={styles.modalRows}>
+            <div style={styles.itemList}>
+              <ItemsList
+                array={baseArr}
+                onAdd={onAddHandler}
+                onRemove={onRemoveHandler}
+              />
+            </div>
+            <div></div>
           </div>
           <div className="selected_items">
             <div className="selected_header">Selected items:</div>
-            <div className="selected_list"></div>
+            <div className="selected_list">
+              <ItemsViewList arr={selectedArr} onRemove={onRemoveHandler} />
+            </div>
           </div>
-          <div style={tools}>
-            <Button variant="contained" color="error">
+          <div style={styles.tools}>
+            <Button variant="contained" color="error" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="contained">Save</Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                onSave(selectedArr);
+                handleClose();
+              }}
+            >
+              Save
+            </Button>
           </div>
         </Box>
       </Modal>

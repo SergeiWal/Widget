@@ -1,15 +1,26 @@
-import React from "react";
-import Button from "@mui/material/Button";
+import React, { useState } from "react";
+import ItemsViewList from "./selectedItemList";
 import WidgetModal from "./w_modal";
 
-function App(props) {
+export function App(props) {
+  const [resultArray, setResultArray] = useState([]);
+  const saveResultHandler = (arr) => {
+    setResultArray([...arr]);
+  };
+  const onRemoveHandler = (e) => {
+    const id = resultArray.findIndex((item) => item === e);
+    if (id != -1) {
+      resultArray.splice(id, id + 1);
+      setResultArray([...resultArray]);
+    }
+  };
   return (
     <div className="widget">
       <div>Selected items:</div>
-      <div className="select_items_list">Select items list</div>
-      <WidgetModal />
+      <div className="select_items_list">
+        <ItemsViewList arr={resultArray} onRemove={onRemoveHandler} />
+      </div>
+      <WidgetModal resultArray={resultArray} onSave={saveResultHandler} />
     </div>
   );
 }
-
-export default App;
