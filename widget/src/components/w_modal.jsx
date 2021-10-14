@@ -34,9 +34,11 @@ export default function WidgetModal(props) {
   const onRemoveHandler = (e) => {
     const id = selectedArr.findIndex((item) => item === e);
     if (id != -1) {
-      selectedArr.splice(id, id + 1);
+      selectedArr.splice(id, 1);
       setSelectedArr([...selectedArr]);
+      return true;
     }
+    return false;
   };
 
   return (
@@ -81,6 +83,7 @@ export default function WidgetModal(props) {
             <div style={styles.itemList}>
               <ItemsList
                 array={baseArr}
+                selectedArr={selectedArr}
                 onAdd={onAddHandler}
                 onRemove={onRemoveHandler}
               />
