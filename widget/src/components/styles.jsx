@@ -14,6 +14,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: "10px",
   },
   modalRows: {
     display: "flex",

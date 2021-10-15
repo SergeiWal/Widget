@@ -5,13 +5,59 @@ import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import ItemsList from "./itemsList";
-import ItemsView from "./selectedItemList";
-import { itemsContext } from "./app";
+import { MenuItem } from "@mui/material";
 import ItemsViewList from "./selectedItemList";
 import styles from "./styles";
 
+const currencies = [
+  {
+    label: "No filter",
+    value: "0-1000",
+  },
+  {
+    label: ">10",
+    value: "10-1000",
+  },
+  {
+    label: ">100",
+    value: "100-1000",
+  },
+  {
+    label: ">200",
+    value: "200-1000",
+  },
+  {
+    label: ">300",
+    value: "300-1000",
+  },
+  {
+    label: ">400",
+    value: "400-1000",
+  },
+  {
+    label: ">500",
+    value: "500-1000",
+  },
+  {
+    label: ">600",
+    value: "600-1000",
+  },
+  {
+    label: ">700",
+    value: "700-1000",
+  },
+  {
+    label: ">800",
+    value: "800-1000",
+  },
+  {
+    label: ">900",
+    value: "900-1000",
+  },
+];
+
 const itemsArray = [];
-for (let i = 1; i < 1000; ++i) {
+for (let i = 1; i <= 1000; ++i) {
   itemsArray.push(`Item ${i}`);
 }
 
@@ -21,7 +67,7 @@ export default function WidgetModal(props) {
   const maxCount = 3;
 
   const [open, setOpen] = useState(false);
-  const [baseArr, setBaseArr] = useState(itemsArray);
+  const [baseArr, setBaseArr] = useState([...itemsArray]);
   const [selectedArr, setSelectedArr] = useState([...resultArray]);
   const [count, setCount] = useState(resultArray.length);
   const [disabled, setDisabled] = useState(
@@ -53,6 +99,10 @@ export default function WidgetModal(props) {
       setDisabled(false);
     }
   };
+  const searchHandler = (value) => {
+    const arr = itemsArray.filter((item) => item.includes(value));
+    setBaseArr([...arr]);
+  };
 
   return (
     <div>
@@ -80,16 +130,29 @@ export default function WidgetModal(props) {
                 id="outlined-basic"
                 label="Search ..."
                 variant="outlined"
+                sx={{ width: "225px" }}
                 size="small"
+                onChange={() => {
+                  const value = document.querySelector("#outlined-basic").value;
+                  searchHandler(value);
+                }}
               />
             </div>
             <div className="filterline">
               <TextField
-                id="outlined-basic"
-                label="No filter"
+                id="outlined-select-currency"
+                label="Filter ..."
                 variant="outlined"
+                sx={{ width: "225px" }}
                 size="small"
-              />
+                select
+              >
+                {currencies.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </div>
           </div>
           <div style={styles.modalRows}>
