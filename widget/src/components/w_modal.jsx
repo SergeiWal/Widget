@@ -137,7 +137,7 @@ export default function WidgetModal(props) {
     setBaseArr([...arr]);
   };
   const filterHandler = (value) => {
-    const arr = itemsArray.filter(
+    const arr = baseArr.filter(
       (item, index) => index > value.start - 1 && index <= value.end
     );
     setBaseArr([...arr]);
@@ -166,29 +166,26 @@ export default function WidgetModal(props) {
           <div style={styles.tools}>
             <div className="searchline">
               <TextField
-                id="outlined-basic"
+                id="searchline"
                 label="Search ..."
                 variant="outlined"
                 sx={{ width: "225px" }}
                 size="small"
-                onChange={() => {
-                  const value = document.querySelector("#outlined-basic").value;
-                  searchHandler(value);
+                onChange={(e) => {
+                  searchHandler(e.target.value);
                 }}
               />
             </div>
             <div className="filterline">
               <TextField
-                id="outlined-select-currency"
+                id="filter"
                 label="Filter ..."
                 variant="outlined"
                 sx={{ width: "225px" }}
                 size="small"
                 select
                 onChange={(e) => {
-                  const value = e.target.value;
-                  console.log(value);
-                  filterHandler(value);
+                  filterHandler(e.target.value);
                 }}
               >
                 {currencies.map((option) => (
