@@ -137,7 +137,7 @@ export default function WidgetModal(props) {
     setBaseArr([...arr]);
   };
   const filterHandler = (value) => {
-    const arr = baseArr.filter(
+    const arr = itemsArray.filter(
       (item, index) => index > value.start - 1 && index <= value.end
     );
     setBaseArr([...arr]);
