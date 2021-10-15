@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles";
 
 export default function Item(props) {
-  const [isCheck, setCheck] = useState(props.check);
+  const selectedArr = props.selectedArr;
   const isDisabled = props.isDisabled;
+  const content = props.content;
+  const arrOnChange = () => (selectedArr.indexOf(content) != -1 ? false : true);
+
+  const [isCheck, setCheck] = useState(arrOnChange());
+  useEffect(() => {
+    setCheck(arrOnChange());
+  }, [selectedArr]);
+
   return (
     <div style={styles.item}>
       <input
@@ -15,7 +23,7 @@ export default function Item(props) {
         checked={!isCheck ? "checked" : ""}
         disabled={isDisabled && isCheck ? "disabled" : ""}
       />
-      {props.content}
+      {content}
     </div>
   );
 }

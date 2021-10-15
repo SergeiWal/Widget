@@ -4,6 +4,7 @@ import WidgetModal from "./w_modal";
 
 export function App(props) {
   const [resultArray, setResultArray] = useState([]);
+
   const saveResultHandler = (arr) => {
     setResultArray([...arr]);
   };

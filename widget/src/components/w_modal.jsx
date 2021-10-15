@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -18,10 +18,19 @@ for (let i = 1; i < 1000; ++i) {
 export default function WidgetModal(props) {
   const onSave = props.onSave;
   const resultArray = props.resultArray;
+  const maxCount = 3;
 
   const [open, setOpen] = useState(false);
   const [baseArr, setBaseArr] = useState(itemsArray);
   const [selectedArr, setSelectedArr] = useState([...resultArray]);
+  const [count, setCount] = useState(resultArray.length);
+  const [disabled, setDisabled] = useState(
+    selectedArr.length === maxCount ? true : false
+  );
+  useEffect(() => {
+    setDisabled(selectedArr.length === maxCount ? true : false);
+    setCount(selectedArr.length);
+  }, [selectedArr]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -29,16 +38,20 @@ export default function WidgetModal(props) {
   };
   const handleClose = () => setOpen(false);
   const onAddHandler = (e) => {
-    setSelectedArr([...selectedArr, e]);
+    if (count < maxCount) {
+      setSelectedArr([...selectedArr, e]);
+      setCount((prev) => prev + 1);
+      if (count >= 2) setDisabled(true);
+    }
   };
   const onRemoveHandler = (e) => {
     const id = selectedArr.findIndex((item) => item === e);
     if (id != -1) {
       selectedArr.splice(id, 1);
       setSelectedArr([...selectedArr]);
-      return true;
+      setCount((prev) => prev - 1);
+      setDisabled(false);
     }
-    return false;
   };
 
   return (
@@ -84,6 +97,9 @@ export default function WidgetModal(props) {
               <ItemsList
                 array={baseArr}
                 selectedArr={selectedArr}
+                count={count}
+                disabled={disabled}
+                setCount={setCount}
                 onAdd={onAddHandler}
                 onRemove={onRemoveHandler}
               />

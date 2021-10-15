@@ -8,12 +8,7 @@ export default function ItemsList(props) {
   const onAdd = props.onAdd;
   const onRemove = props.onRemove;
   const selectedArr = props.selectedArr;
-  const maxCount = 3;
-
-  const [count, setCount] = useState(selectedArr.length);
-  const [disabled, setDisabled] = useState(
-    selectedArr.length === 3 ? true : false
-  );
+  const disabled = props.disabled;
 
   return (
     <ul style={styles.ul}>
@@ -23,19 +18,12 @@ export default function ItemsList(props) {
             <Item
               content={item}
               isDisabled={disabled}
-              check={selectedArr.indexOf(item) != -1 ? false : true}
+              selectedArr={selectedArr}
               isChecked={(check) => {
                 if (check) {
-                  if (count < maxCount) {
-                    onAdd(item);
-                    setCount(count + 1);
-                  }
-                  if (count >= 2) setDisabled(true);
+                  onAdd(item);
                 } else {
-                  if (onRemove(item)) {
-                    setCount(count - 1);
-                    setDisabled(false);
-                  }
+                  onRemove(item);
                 }
               }}
             />
