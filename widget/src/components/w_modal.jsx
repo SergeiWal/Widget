@@ -12,47 +12,80 @@ import styles from "./styles";
 const currencies = [
   {
     label: "No filter",
-    value: "0-1000",
+    value: {
+      start: 0,
+      end: 1000,
+    },
   },
   {
     label: ">10",
-    value: "10-1000",
+    value: {
+      start: 10,
+      end: 1000,
+    },
   },
   {
     label: ">100",
-    value: "100-1000",
+    value: {
+      start: 100,
+      end: 1000,
+    },
   },
   {
     label: ">200",
-    value: "200-1000",
+    value: {
+      start: 200,
+      end: 1000,
+    },
   },
   {
     label: ">300",
-    value: "300-1000",
+    value: {
+      start: 300,
+      end: 1000,
+    },
   },
   {
     label: ">400",
-    value: "400-1000",
+    value: {
+      start: 400,
+      end: 1000,
+    },
   },
   {
     label: ">500",
-    value: "500-1000",
+    value: {
+      start: 500,
+      end: 1000,
+    },
   },
   {
     label: ">600",
-    value: "600-1000",
+    value: {
+      start: 600,
+      end: 1000,
+    },
   },
   {
     label: ">700",
-    value: "700-1000",
+    value: {
+      start: 700,
+      end: 1000,
+    },
   },
   {
     label: ">800",
-    value: "800-1000",
+    value: {
+      start: 800,
+      end: 1000,
+    },
   },
   {
     label: ">900",
-    value: "900-1000",
+    value: {
+      start: 900,
+      end: 1000,
+    },
   },
 ];
 
@@ -103,6 +136,12 @@ export default function WidgetModal(props) {
     const arr = itemsArray.filter((item) => item.includes(value));
     setBaseArr([...arr]);
   };
+  const filterHandler = (value) => {
+    const arr = itemsArray.filter(
+      (item, index) => index > value.start - 1 && index <= value.end
+    );
+    setBaseArr([...arr]);
+  };
 
   return (
     <div>
@@ -146,6 +185,11 @@ export default function WidgetModal(props) {
                 sx={{ width: "225px" }}
                 size="small"
                 select
+                onChange={(e) => {
+                  const value = e.target.value;
+                  console.log(value);
+                  filterHandler(value);
+                }}
               >
                 {currencies.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
