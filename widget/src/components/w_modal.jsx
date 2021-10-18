@@ -106,8 +106,13 @@ export default function WidgetModal(props) {
   const [disabled, setDisabled] = useState(
     selectedArr.length === maxCount ? true : false
   );
-  const [searchlineChange, setSearchlineChange] = useState(false);
+  const [searchlineValue, setSearchlineValue] = useState("");
+  const [filterValue, setFilterValue] = useState(currencies[0].value);
   const [filterChange, setFilterChange] = useState(false);
+
+  useEffect(() => {
+    concatFilterSearchHandler();
+  }, [searchlineValue, filterValue]);
 
   useEffect(() => {
     setDisabled(selectedArr.length === maxCount ? true : false);
@@ -138,15 +143,18 @@ export default function WidgetModal(props) {
       setDisabled(false);
     }
   };
-  const searchHandler = (value) => {
-    const arr = itemsArray.filter((item) => item.includes(value));
-    setSearchlineChange((prev) => !prev);
-    setBaseArr([...arr]);
+  const search = (arr, value) => {
+    return arr.filter((item) => item.includes(value));
   };
-  const filterHandler = (value) => {
-    const arr = itemsArray.filter(
+  const filter = (value) => {
+    return itemsArray.filter(
       (item, index) => index > value.start - 1 && index <= value.end
     );
+  };
+  const concatFilterSearchHandler = () => {
+    let arr;
+    arr = filter(filterValue);
+    arr = search(arr, searchlineValue);
     setFilterChange((prev) => !prev);
     setBaseArr([...arr]);
   };
@@ -180,7 +188,7 @@ export default function WidgetModal(props) {
                 sx={{ width: "225px" }}
                 size="small"
                 onChange={(e) => {
-                  searchHandler(e.target.value);
+                  setSearchlineValue(e.target.value);
                 }}
               />
             </div>
@@ -192,8 +200,9 @@ export default function WidgetModal(props) {
                 sx={{ width: "225px" }}
                 size="small"
                 select
+                defaultValue={currencies[0].value}
                 onChange={(e) => {
-                  filterHandler(e.target.value);
+                  setFilterValue(e.target.value);
                 }}
               >
                 {currencies.map((option, index) => (
@@ -211,7 +220,6 @@ export default function WidgetModal(props) {
                 selectedArr={selectedArr}
                 count={count}
                 disabled={disabled}
-                searchlineChange={searchlineChange}
                 filterChange={filterChange}
                 setCount={setCount}
                 onAdd={onAddHandler}

@@ -8,7 +8,6 @@ export default function ItemsList(props) {
   const onRemove = props.onRemove;
   const selectedArr = props.selectedArr;
   const disabled = props.disabled;
-  const searchlineChange = props.searchlineChange;
   const filterChange = props.filterChange;
 
   return (
@@ -20,7 +19,6 @@ export default function ItemsList(props) {
               content={item}
               isDisabled={disabled}
               selectedArr={selectedArr}
-              searchlineChange={searchlineChange}
               filterChange={filterChange}
               isChecked={(check) => {
                 if (check) {
