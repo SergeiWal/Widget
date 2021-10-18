@@ -106,6 +106,9 @@ export default function WidgetModal(props) {
   const [disabled, setDisabled] = useState(
     selectedArr.length === maxCount ? true : false
   );
+  const [searchlineChange, setSearchlineChange] = useState(false);
+  const [filterChange, setFilterChange] = useState(false);
+
   useEffect(() => {
     setDisabled(selectedArr.length === maxCount ? true : false);
     setCount(selectedArr.length);
@@ -113,9 +116,12 @@ export default function WidgetModal(props) {
 
   const handleOpen = () => {
     setOpen(true);
+    setBaseArr([...itemsArray]);
     setSelectedArr([...resultArray]);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
   const onAddHandler = (e) => {
     if (count < maxCount) {
       setSelectedArr([...selectedArr, e]);
@@ -125,7 +131,7 @@ export default function WidgetModal(props) {
   };
   const onRemoveHandler = (e) => {
     const id = selectedArr.findIndex((item) => item === e);
-    if (id != -1) {
+    if (id !== -1) {
       selectedArr.splice(id, 1);
       setSelectedArr([...selectedArr]);
       setCount((prev) => prev - 1);
@@ -134,12 +140,14 @@ export default function WidgetModal(props) {
   };
   const searchHandler = (value) => {
     const arr = itemsArray.filter((item) => item.includes(value));
+    setSearchlineChange((prev) => !prev);
     setBaseArr([...arr]);
   };
   const filterHandler = (value) => {
     const arr = itemsArray.filter(
       (item, index) => index > value.start - 1 && index <= value.end
     );
+    setFilterChange((prev) => !prev);
     setBaseArr([...arr]);
   };
 
@@ -188,8 +196,8 @@ export default function WidgetModal(props) {
                   filterHandler(e.target.value);
                 }}
               >
-                {currencies.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
+                {currencies.map((option, index) => (
+                  <MenuItem key={index} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}
@@ -203,6 +211,8 @@ export default function WidgetModal(props) {
                 selectedArr={selectedArr}
                 count={count}
                 disabled={disabled}
+                searchlineChange={searchlineChange}
+                filterChange={filterChange}
                 setCount={setCount}
                 onAdd={onAddHandler}
                 onRemove={onRemoveHandler}

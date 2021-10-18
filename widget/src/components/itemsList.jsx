@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { itemsContext } from "./app";
+import React from "react";
 import Item from "./item";
 import styles from "./styles";
 
@@ -9,6 +8,8 @@ export default function ItemsList(props) {
   const onRemove = props.onRemove;
   const selectedArr = props.selectedArr;
   const disabled = props.disabled;
+  const searchlineChange = props.searchlineChange;
+  const filterChange = props.filterChange;
 
   return (
     <ul style={styles.ul}>
@@ -19,6 +20,8 @@ export default function ItemsList(props) {
               content={item}
               isDisabled={disabled}
               selectedArr={selectedArr}
+              searchlineChange={searchlineChange}
+              filterChange={filterChange}
               isChecked={(check) => {
                 if (check) {
                   onAdd(item);

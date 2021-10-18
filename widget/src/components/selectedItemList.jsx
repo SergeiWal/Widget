@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { itemsContext } from "./app";
+import React from "react";
 import ItemView from "./itemsView";
 import styles from "./styles";
 

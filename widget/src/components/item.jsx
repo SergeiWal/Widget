@@ -5,12 +5,17 @@ export default function Item(props) {
   const selectedArr = props.selectedArr;
   const isDisabled = props.isDisabled;
   const content = props.content;
-  const arrOnChange = () => (selectedArr.indexOf(content) != -1 ? false : true);
+  const searchlineChange = props.searchlineChange;
+  const filterChange = props.filterChange;
+
+  const arrOnChange = () => {
+    return selectedArr.indexOf(content) !== -1 ? false : true;
+  };
 
   const [isCheck, setCheck] = useState(arrOnChange());
   useEffect(() => {
     setCheck(arrOnChange());
-  }, [selectedArr]);
+  }, [selectedArr, searchlineChange, filterChange]);
 
   return (
     <div style={styles.item}>

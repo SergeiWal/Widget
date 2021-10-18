@@ -19,7 +19,7 @@ export function App(props) {
   };
   const onRemoveHandler = (e) => {
     const id = resultArray.findIndex((item) => item === e);
-    if (id != -1) {
+    if (id !== -1) {
       resultArray.splice(id, 1);
       setResultArray([...resultArray]);
     }
