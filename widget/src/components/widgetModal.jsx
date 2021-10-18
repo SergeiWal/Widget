@@ -7,87 +7,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import ItemsList from "./itemsList";
 import { MenuItem } from "@mui/material";
 import ItemsViewList from "./selectedItemList";
+import { filterItems } from "./filterItems";
 import styles from "./styles";
-
-const currencies = [
-  {
-    label: "No filter",
-    value: {
-      start: 0,
-      end: 1000,
-    },
-  },
-  {
-    label: ">10",
-    value: {
-      start: 10,
-      end: 1000,
-    },
-  },
-  {
-    label: ">100",
-    value: {
-      start: 100,
-      end: 1000,
-    },
-  },
-  {
-    label: ">200",
-    value: {
-      start: 200,
-      end: 1000,
-    },
-  },
-  {
-    label: ">300",
-    value: {
-      start: 300,
-      end: 1000,
-    },
-  },
-  {
-    label: ">400",
-    value: {
-      start: 400,
-      end: 1000,
-    },
-  },
-  {
-    label: ">500",
-    value: {
-      start: 500,
-      end: 1000,
-    },
-  },
-  {
-    label: ">600",
-    value: {
-      start: 600,
-      end: 1000,
-    },
-  },
-  {
-    label: ">700",
-    value: {
-      start: 700,
-      end: 1000,
-    },
-  },
-  {
-    label: ">800",
-    value: {
-      start: 800,
-      end: 1000,
-    },
-  },
-  {
-    label: ">900",
-    value: {
-      start: 900,
-      end: 1000,
-    },
-  },
-];
 
 const itemsArray = [];
 for (let i = 1; i <= 1000; ++i) {
@@ -107,13 +28,11 @@ export default function WidgetModal(props) {
     selectedArr.length === maxCount ? true : false
   );
   const [searchlineValue, setSearchlineValue] = useState("");
-  const [filterValue, setFilterValue] = useState(currencies[0].value);
+  const [filterValue, setFilterValue] = useState(filterItems[0].value);
   const [filterChange, setFilterChange] = useState(false);
-
   useEffect(() => {
     concatFilterSearchHandler();
   }, [searchlineValue, filterValue]);
-
   useEffect(() => {
     setDisabled(selectedArr.length === maxCount ? true : false);
     setCount(selectedArr.length);
@@ -200,12 +119,12 @@ export default function WidgetModal(props) {
                 sx={{ width: "225px" }}
                 size="small"
                 select
-                defaultValue={currencies[0].value}
+                defaultValue={filterItems[0].value}
                 onChange={(e) => {
                   setFilterValue(e.target.value);
                 }}
               >
-                {currencies.map((option, index) => (
+                {filterItems.map((option, index) => (
                   <MenuItem key={index} value={option.value}>
                     {option.label}
                   </MenuItem>

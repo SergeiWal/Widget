@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ItemsViewList from "./selectedItemList";
-import WidgetModal from "./w_modal";
+import WidgetModal from "./widgetModal";
 
 const resKey = "ResArr";
 const initFromLocalStorage = () => {
@@ -10,6 +10,7 @@ const initFromLocalStorage = () => {
 
 export function App(props) {
   const [resultArray, setResultArray] = useState(initFromLocalStorage());
+
   useEffect(() => {
     localStorage.setItem(resKey, resultArray);
   }, [resultArray]);
