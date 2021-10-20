@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
-import ItemsViewList from "./selectedItemList";
+import ItemsViewList from "./itemViewsList";
 import WidgetModal from "./widgetModal";
 
-const resKey = "ResArr";
-const initFromLocalStorage = () => {
-  const localItem = localStorage.getItem(resKey);
-  return localItem?.length > 0 ? localItem.split(",") : [];
+const LOCAL_STORAGE_KEY = "ResArr";
+
+const initFromLocalStorage = (): Array<string> => {
+  const localItem: string | null = localStorage.getItem(LOCAL_STORAGE_KEY);
+  return localItem && localItem.length > 0 ? localItem.split(",") : [];
 };
 
-export function App() {
+export default function App() {
   const [resultArray, setResultArray] = useState(initFromLocalStorage());
 
   useEffect(() => {
-    localStorage.setItem(resKey, resultArray);
+    localStorage.setItem(LOCAL_STORAGE_KEY, resultArray.join(","));
   }, [resultArray]);
 
-  const saveResultHandler = (arr) => {
+  const saveResultHandler = (arr: Array<string>): void => {
     setResultArray([...arr]);
   };
-  const onRemoveHandler = (e) => {
-    const id = resultArray.findIndex((item) => item === e);
+  const onRemoveHandler = (item: string): void => {
+    const id = resultArray.findIndex((element) => element === item);
     if (id !== -1) {
       resultArray.splice(id, 1);
       setResultArray([...resultArray]);
