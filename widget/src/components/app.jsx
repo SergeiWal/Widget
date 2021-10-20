@@ -5,7 +5,7 @@ import WidgetModal from "./widgetModal";
 const resKey = "ResArr";
 const initFromLocalStorage = () => {
   const localItem = localStorage.getItem(resKey);
-  return localItem.length > 0 ? localItem.split(",") : [];
+  return localItem && localItem.length > 0 ? localItem.split(",") : [];
 };
 
 export function App(props) {
