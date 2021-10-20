@@ -1,4 +1,3 @@
-import React from "react";
 import STYLES from "../constants/styles";
 import ItemView from "./itemView";
 

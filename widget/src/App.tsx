@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ItemsViewList from "./itemViewsList";
-import WidgetModal from "./widgetModal";
+import ItemsViewList from "./components/itemViewsList";
+import WidgetModal from "./components/widgetModal";
+import WidgetModalContainer from "./containers/modalContainers";
 
 const LOCAL_STORAGE_KEY = "ResArr";
 
@@ -32,7 +33,10 @@ export default function App() {
       <div className="select_items_list">
         <ItemsViewList arr={resultArray} onRemove={onRemoveHandler} />
       </div>
-      <WidgetModal resultArray={resultArray} onSave={saveResultHandler} />
+      <WidgetModalContainer
+        resultArray={resultArray}
+        onSave={saveResultHandler}
+      />
     </div>
   );
 }

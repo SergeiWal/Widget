@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import STYLES from "../constants/styles";
