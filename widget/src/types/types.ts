@@ -11,6 +11,7 @@ export type ItemProps = {
 };
 
 export type ItemsListProps = {
+  baseArr: Array<string>;
   onAdd: (item: string) => void;
   onRemove: (item: string) => void;
 };

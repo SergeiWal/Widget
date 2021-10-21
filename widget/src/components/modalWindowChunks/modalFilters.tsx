@@ -28,7 +28,7 @@ export default function ModalFilters() {
                 sx={{ width: "225px" }}
                 size="small"
                 select
-                defaultValue={FILTER_ITEMS[0].value}
+                defaultValue={JSON.stringify(FILTER_ITEMS[0].value)}
                 onChange={(e) => setFilterValue(JSON.parse(e.target.value))}
               >
                 {FILTER_ITEMS.map((option, index) => (

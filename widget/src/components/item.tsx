@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import STYLES from "../constants/styles";
 import { ItemProps } from "../types/types";
 
@@ -9,14 +9,14 @@ export default function Item({
   filterChange,
   isChecked,
 }: ItemProps) {
-  const arrOnChange = (): boolean => {
+  const arrOnChange = useCallback((): boolean => {
     return selectedArr.indexOf(content) !== -1 ? false : true;
-  };
+  }, [selectedArr, content]);
 
   const [isCheck, setCheck] = useState(arrOnChange());
   useEffect(() => {
     setCheck(arrOnChange());
-  }, [selectedArr, filterChange]);
+  }, [filterChange, arrOnChange]);
 
   const onChangeHandler = (): void => {
     setCheck(!isCheck);

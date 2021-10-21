@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import WidgetModal from "../components/widgetModal";
 import { FILTER_ITEMS } from "../constants/modal";
 import {
@@ -9,7 +9,7 @@ import {
 import { MAX_COUNT, DEFAULT_CONTEXT_VALUE } from "../constants/container";
 
 const itemsArray: Array<string> = [];
-for (let i: number = 1; i <= 1000; ++i) {
+for (let i: number = 1; i <= 100000; ++i) {
   itemsArray.push(`Item ${i}`);
 }
 
@@ -32,9 +32,17 @@ export default function WidgetModalContainer({
   const [filterValue, setFilterValue] = useState(FILTER_ITEMS[0].value);
   const [filterChange, setFilterChange] = useState(false);
 
+  const concatFilterSearchHandler = useCallback((): void => {
+    let arr;
+    arr = filter(filterValue);
+    arr = search(arr, searchlineValue);
+    setFilterChange((prev) => !prev);
+    setBaseArr([...arr]);
+  }, [filterValue, searchlineValue]);
+
   useEffect(() => {
     concatFilterSearchHandler();
-  }, [searchlineValue, filterValue]);
+  }, [concatFilterSearchHandler]);
   useEffect(() => {
     setDisabled(selectedArr.length === MAX_COUNT ? true : false);
     setCount(selectedArr.length);
@@ -65,19 +73,14 @@ export default function WidgetModalContainer({
     }
   };
   const search = (arr: Array<string>, value: string): Array<string> => {
-    return arr.filter((item) => item.includes(value));
+    return arr.filter((item) =>
+      item.toLowerCase().includes(value.toLowerCase())
+    );
   };
   const filter = (value: FilterItemValue): Array<string> => {
     return itemsArray.filter(
       (item, index) => index > value.start - 1 && index <= value.end
     );
-  };
-  const concatFilterSearchHandler = (): void => {
-    let arr;
-    arr = filter(filterValue);
-    arr = search(arr, searchlineValue);
-    setFilterChange((prev) => !prev);
-    setBaseArr([...arr]);
   };
 
   const ModalContextValue: ModalContextType = {
