@@ -9,7 +9,7 @@ import {
 import { MAX_COUNT, DEFAULT_CONTEXT_VALUE } from "../constants/container";
 
 const START_ITEMS_AMOUNT: number = 1000;
-const ITEMS_AMOUNT: number = 100000;
+//const ITEMS_AMOUNT: number = 100000;
 
 const itemsArray: Array<string> = [];
 for (let i: number = 1; i <= START_ITEMS_AMOUNT; ++i) {
