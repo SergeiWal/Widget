@@ -1,5 +1,6 @@
 import STYLES from "../constants/styles";
 import ItemView from "./itemView";
+import { ModalContext } from "../containers/modalContainers";
 
 type ItemViewsListProps = {
   arr: Array<string>;

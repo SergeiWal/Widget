@@ -1,23 +1,13 @@
 import Item from "./item";
 import STYLES from "../constants/styles";
+import { ModalContext } from "../containers/modalContainers";
 
 type ItemsListProps = {
-  itemsArray: Array<string>;
-  selectedArray: Array<string>;
-  disabled: boolean;
-  isFilterChange: boolean;
   onAdd: (item: string) => void;
   onRemove: (item: string) => void;
 };
 
-export default function ItemsList({
-  itemsArray,
-  onAdd,
-  onRemove,
-  selectedArray,
-  disabled,
-  isFilterChange,
-}: ItemsListProps) {
+export default function ItemsList({ onAdd, onRemove }: ItemsListProps) {
   const isCheckedHandler = (check: boolean, item: string) => {
     if (check) {
       onAdd(item);
@@ -27,20 +17,26 @@ export default function ItemsList({
   };
 
   return (
-    <ul style={STYLES.ul}>
-      {itemsArray.map((item, index) => {
+    <ModalContext.Consumer>
+      {({ baseArr, selectedArr, disabled, filterChange }) => {
         return (
-          <li key={index}>
-            <Item
-              content={item}
-              isDisabled={disabled}
-              selectedArr={selectedArray}
-              filterChange={isFilterChange}
-              isChecked={(check) => isCheckedHandler(check, item)}
-            />
-          </li>
+          <ul style={STYLES.ul}>
+            {baseArr.map((item, index) => {
+              return (
+                <li key={index}>
+                  <Item
+                    content={item}
+                    isDisabled={disabled}
+                    selectedArr={selectedArr}
+                    filterChange={filterChange}
+                    isChecked={(check) => isCheckedHandler(check, item)}
+                  />
+                </li>
+              );
+            })}
+          </ul>
         );
-      })}
-    </ul>
+      }}
+    </ModalContext.Consumer>
   );
 }

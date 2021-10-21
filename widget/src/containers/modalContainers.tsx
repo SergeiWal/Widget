@@ -15,14 +15,10 @@ type ModalProps = {
 };
 
 type ModalContextType = {
-  open: boolean;
   baseArr: Array<string>;
   selectedArr: Array<string>;
   disabled: boolean;
   filterChange: boolean;
-  onSave: (arr: Array<string>) => void;
-  handleOpen: () => void;
-  handleClose: () => void;
   setSearchlineValue: (value: string) => void;
   setFilterValue: (value: FilterItemValue) => void;
   onAddHandler: (item: string) => void;
