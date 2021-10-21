@@ -8,8 +8,11 @@ import {
 } from "../types/types";
 import { MAX_COUNT, DEFAULT_CONTEXT_VALUE } from "../constants/container";
 
+const START_ITEMS_AMOUNT: number = 1000;
+const ITEMS_AMOUNT: number = 100000;
+
 const itemsArray: Array<string> = [];
-for (let i: number = 1; i <= 100000; ++i) {
+for (let i: number = 1; i <= START_ITEMS_AMOUNT; ++i) {
   itemsArray.push(`Item ${i}`);
 }
 
@@ -86,6 +89,7 @@ export default function WidgetModalContainer({
   const ModalContextValue: ModalContextType = {
     baseArr,
     selectedArr,
+    count,
     disabled,
     filterChange,
     handleOpen,

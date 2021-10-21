@@ -3,6 +3,7 @@ import { FilterItemValue } from "../types/types";
 export const MAX_COUNT = 3;
 
 export const DEFAULT_CONTEXT_VALUE = {
+  count: 0,
   baseArr: [],
   selectedArr: [],
   disabled: false,

@@ -6,9 +6,9 @@ import { ModalContext } from "../../containers/modalContainer";
 export default function ModalBody() {
   return (
     <ModalContext.Consumer>
-      {({ baseArr, selectedArr, onAddHandler, onRemoveHandler }) => {
+      {({ count, baseArr, selectedArr, onAddHandler, onRemoveHandler }) => {
         return (
-          <div>
+          <div style={STYLES.modalBody}>
             <div style={STYLES.modalRows}>
               <ItemsList
                 baseArr={baseArr}
@@ -17,8 +17,16 @@ export default function ModalBody() {
               />
               <div></div>
             </div>
-            <div className="selected_items">
-              <div className="selected_header">Selected items:</div>
+            <div style={STYLES.selectedItemsBox}>
+              <div
+                style={
+                  count > 0
+                    ? STYLES.selectedItemsTitle
+                    : STYLES.selectedItemsTitleEmpty
+                }
+              >
+                Selected items:
+              </div>
               <div className="selected_list">
                 <ItemsViewList arr={selectedArr} onRemove={onRemoveHandler} />
               </div>

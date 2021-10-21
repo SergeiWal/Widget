@@ -10,6 +10,9 @@ const STYLES = {
     boxShadow: 24,
     p: 4,
   },
+  modalBody: {
+    marginTop: "15px",
+  },
   tools: {
     display: "flex",
     justifyContent: "space-between",
@@ -29,7 +32,7 @@ const STYLES = {
     margin: "10px 0px",
   },
   itemList: {
-    height: "300px",
+    height: "320px",
     overflow: "auto",
   },
   ul: {
@@ -51,6 +54,17 @@ const STYLES = {
     listStyle: "none",
     padding: "0px",
     margin: "5px 0px",
+  },
+  selectedItemsBox: {
+    marginTop: "5px",
+    height: "60px",
+    //borderTop: "1px solid #ccc",
+  },
+  selectedItemsTitleEmpty: {
+    display: "none",
+  },
+  selectedItemsTitle: {
+    display: "block",
   },
 };
 

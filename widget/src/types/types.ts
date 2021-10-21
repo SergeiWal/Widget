@@ -46,6 +46,7 @@ export type ModalContainerProps = {
 };
 
 export type ModalContextType = {
+  count: number;
   baseArr: Array<string>;
   selectedArr: Array<string>;
   disabled: boolean;

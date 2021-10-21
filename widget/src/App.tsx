@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ItemsViewList from "./components/itemViewsList";
 import WidgetModalContainer from "./containers/modalContainer";
+import STYLES from "./constants/styles";
 
 const LOCAL_STORAGE_KEY = "ResArr";
 
