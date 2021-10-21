@@ -1,11 +1,7 @@
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import STYLES from "../constants/styles";
-
-type ItemViewProps = {
-  content: string;
-  onRemove: (item: string) => void;
-};
+import { ItemViewProps } from "../types/types";
 
 export default function ItemView({ content, onRemove }: ItemViewProps) {
   const onClickHandler = () => {

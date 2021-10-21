@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ItemsViewList from "./components/itemViewsList";
-import WidgetModal from "./components/widgetModal";
-import WidgetModalContainer from "./containers/modalContainers";
+import WidgetModalContainer from "./containers/modalContainer";
 
 const LOCAL_STORAGE_KEY = "ResArr";
 
@@ -12,7 +11,6 @@ const initFromLocalStorage = (): Array<string> => {
 
 export default function App() {
   const [resultArray, setResultArray] = useState(initFromLocalStorage());
-
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, resultArray.join(","));
   }, [resultArray]);
@@ -27,6 +25,7 @@ export default function App() {
       setResultArray([...resultArray]);
     }
   };
+
   return (
     <div className="widget">
       <div>Selected items:</div>

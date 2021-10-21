@@ -1,49 +1,26 @@
 import React, { useEffect, useState } from "react";
 import WidgetModal from "../components/widgetModal";
-import { FILTER_ITEMS, FilterItemValue } from "../constants/modals";
-
-const MAX_COUNT = 3;
+import { FILTER_ITEMS } from "../constants/modal";
+import {
+  ModalContextType,
+  ModalContainerProps,
+  FilterItemValue,
+} from "../types/types";
+import { MAX_COUNT, DEFAULT_CONTEXT_VALUE } from "../constants/container";
 
 const itemsArray: Array<string> = [];
 for (let i: number = 1; i <= 1000; ++i) {
   itemsArray.push(`Item ${i}`);
 }
 
-type ModalProps = {
-  onSave: (arr: Array<string>) => void;
-  resultArray: Array<string>;
-};
-
-type ModalContextType = {
-  baseArr: Array<string>;
-  selectedArr: Array<string>;
-  disabled: boolean;
-  filterChange: boolean;
-  setSearchlineValue: (value: string) => void;
-  setFilterValue: (value: FilterItemValue) => void;
-  onAddHandler: (item: string) => void;
-  onRemoveHandler: (item: string) => void;
-};
-
-export const ModalContext = React.createContext<ModalContextType>({
-  baseArr: [],
-  open: false,
-  selectedArr: [],
-  disabled: false,
-  filterChange: false,
-  onSave: (arr: Array<string>) => {},
-  handleOpen: () => {},
-  handleClose: () => {},
-  setSearchlineValue: (value: string) => {},
-  setFilterValue: (value: FilterItemValue) => {},
-  onAddHandler: (item: string) => {},
-  onRemoveHandler: (item: string) => {},
-});
+export const ModalContext = React.createContext<ModalContextType>(
+  DEFAULT_CONTEXT_VALUE
+);
 
 export default function WidgetModalContainer({
   onSave,
   resultArray,
-}: ModalProps) {
+}: ModalContainerProps) {
   const [open, setOpen] = useState(false);
   const [baseArr, setBaseArr] = useState([...itemsArray]);
   const [selectedArr, setSelectedArr] = useState([...resultArray]);
@@ -104,23 +81,22 @@ export default function WidgetModalContainer({
   };
 
   const ModalContextValue: ModalContextType = {
-    open,
     baseArr,
     selectedArr,
     disabled,
     filterChange,
     handleOpen,
     handleClose,
+    onSave,
     setSearchlineValue,
     setFilterValue,
     onAddHandler,
     onRemoveHandler,
-    onSave,
   };
 
   return (
     <ModalContext.Provider value={ModalContextValue}>
-      <WidgetModal />
+      <WidgetModal open={open} />
     </ModalContext.Provider>
   );
 }

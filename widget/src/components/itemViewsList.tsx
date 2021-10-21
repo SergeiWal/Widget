@@ -1,11 +1,6 @@
 import STYLES from "../constants/styles";
 import ItemView from "./itemView";
-import { ModalContext } from "../containers/modalContainers";
-
-type ItemViewsListProps = {
-  arr: Array<string>;
-  onRemove: (item: string) => void;
-};
+import { ItemViewsListProps } from "../types/types";
 
 export default function ItemsViewList({ arr, onRemove }: ItemViewsListProps) {
   return (

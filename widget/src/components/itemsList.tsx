@@ -1,11 +1,7 @@
 import Item from "./item";
 import STYLES from "../constants/styles";
-import { ModalContext } from "../containers/modalContainers";
-
-type ItemsListProps = {
-  onAdd: (item: string) => void;
-  onRemove: (item: string) => void;
-};
+import { ModalContext } from "../containers/modalContainer";
+import { ItemsListProps } from "../types/types";
 
 export default function ItemsList({ onAdd, onRemove }: ItemsListProps) {
   const isCheckedHandler = (check: boolean, item: string) => {

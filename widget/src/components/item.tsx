@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import STYLES from "../constants/styles";
-
-type ItemProps = {
-  selectedArr: Array<string>;
-  isDisabled: boolean;
-  content: string;
-  filterChange: boolean;
-  isChecked: (firstParam: boolean) => void;
-};
+import { ItemProps } from "../types/types";
 
 export default function Item({
   selectedArr,

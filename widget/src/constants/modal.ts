@@ -1,12 +1,4 @@
-export type FilterItemValue = {
-  start: number;
-  end: number;
-};
-
-export type FilterItem = {
-  label: string;
-  value: FilterItemValue;
-};
+import { FilterItem } from "../types/types";
 
 export const FILTER_ITEMS: Array<FilterItem> = [
   {

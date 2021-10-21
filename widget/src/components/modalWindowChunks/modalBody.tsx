@@ -1,18 +1,9 @@
 import STYLES from "../../constants/styles";
 import ItemsViewList from "../itemViewsList";
 import ItemsList from "../itemsList";
-import { ModalContext } from "../../containers/modalContainers";
+import { ModalContext } from "../../containers/modalContainer";
 
-type ModalBodyProps = {
-  baseArr: Array<string>;
-  selectedArr: Array<string>;
-  disabled: boolean;
-  filterChange: boolean;
-  onAddHandler: (item: string) => {};
-  onRemoveHandler: (item: string) => {};
-};
-
-export default function ModalBody({}: ModalBodyProps) {
+export default function ModalBody() {
   return (
     <ModalContext.Consumer>
       {({ selectedArr, onAddHandler, onRemoveHandler }) => {
