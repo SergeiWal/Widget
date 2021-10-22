@@ -16,7 +16,7 @@ export default function App() {
   }, [resultArray]);
 
   const saveResultHandler = (arr: Array<string>): void => {
-    setResultArray([...arr]);
+    setResultArray(arr);
   };
   const onRemoveHandler = (item: string): void => {
     const id = resultArray.findIndex((element) => element === item);

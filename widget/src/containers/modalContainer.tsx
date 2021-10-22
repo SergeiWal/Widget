@@ -25,8 +25,8 @@ export default function WidgetModalContainer({
   resultArray,
 }: ModalContainerProps) {
   const [open, setOpen] = useState(false);
-  const [baseArr, setBaseArr] = useState([...itemsArray]);
-  const [selectedArr, setSelectedArr] = useState([...resultArray]);
+  const [baseArr, setBaseArr] = useState(itemsArray);
+  const [selectedArr, setSelectedArr] = useState(resultArray); //
   const [count, setCount] = useState(resultArray.length);
   const [disabled, setDisabled] = useState(
     selectedArr.length === MAX_COUNT ? true : false
@@ -40,7 +40,7 @@ export default function WidgetModalContainer({
     arr = filter(filterValue);
     arr = search(arr, searchlineValue);
     setFilterChange((prev) => !prev);
-    setBaseArr([...arr]);
+    setBaseArr(arr); //
   }, [filterValue, searchlineValue]);
 
   useEffect(() => {
@@ -53,8 +53,8 @@ export default function WidgetModalContainer({
 
   const handleOpen = (): void => {
     setOpen(true);
-    setBaseArr([...itemsArray]);
-    setSelectedArr([...resultArray]);
+    setBaseArr(itemsArray); //
+    setSelectedArr(resultArray); //
   };
   const handleClose = (): void => {
     setOpen(false);
