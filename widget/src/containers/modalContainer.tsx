@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import WidgetModal from "../components/widgetModal";
 import { FILTER_ITEMS } from "../constants/modal";
 import {
@@ -107,3 +107,5 @@ export default function WidgetModalContainer({
     </ModalContext.Provider>
   );
 }
+
+export const useModalContext = () => useContext(ModalContext);

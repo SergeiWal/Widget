@@ -1,6 +1,6 @@
 import Item from "./item";
 import STYLES from "../constants/styles";
-import { ModalContext } from "../containers/modalContainer";
+import { useModalContext } from "../containers/modalContainer";
 import { ItemsListProps } from "../types/types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useState } from "react";
@@ -18,6 +18,8 @@ export default function ItemsList({
   const [count, setCount] = useState<CountObject>({ prev: 0, next: 10 });
   const [hasMore, setHasMore] = useState(true);
   const [current, setCurrent] = useState(baseArr.slice(count.prev, count.next));
+  const { selectedArr, disabled, filterChange } = useModalContext();
+
   const getMoreData = (): void => {
     if (current.length === baseArr.length) {
       setHasMore(false);
@@ -43,35 +45,29 @@ export default function ItemsList({
   };
 
   return (
-    <ModalContext.Consumer>
-      {({ selectedArr, disabled, filterChange }) => {
-        return (
-          <InfiniteScroll
-            dataLength={current.length}
-            next={getMoreData}
-            hasMore={hasMore}
-            loader={""}
-          >
-            <div style={STYLES.itemList}>
-              <ul style={STYLES.ul}>
-                {baseArr.map((item, index) => {
-                  return (
-                    <li key={index}>
-                      <Item
-                        content={item}
-                        isDisabled={disabled}
-                        selectedArr={selectedArr}
-                        filterChange={filterChange}
-                        isChecked={(check) => isCheckedHandler(check, item)}
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </InfiniteScroll>
-        );
-      }}
-    </ModalContext.Consumer>
+    <InfiniteScroll
+      dataLength={current.length}
+      next={getMoreData}
+      hasMore={hasMore}
+      loader={""}
+    >
+      <div style={STYLES.itemList}>
+        <ul style={STYLES.ul}>
+          {baseArr.map((item, index) => {
+            return (
+              <li key={index}>
+                <Item
+                  content={item}
+                  isDisabled={disabled}
+                  selectedArr={selectedArr}
+                  filterChange={filterChange}
+                  isChecked={(check) => isCheckedHandler(check, item)}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </InfiniteScroll>
   );
 }
