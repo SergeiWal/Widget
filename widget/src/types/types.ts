@@ -16,6 +16,11 @@ export type ItemsListProps = {
   onRemove: (item: string) => void;
 };
 
+export type CountObject = {
+  prev: number;
+  next: number;
+};
+
 export type ItemViewProps = {
   content: string;
   onRemove: (item: string) => void;

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import ItemsViewList from "./components/itemViewsList";
-import WidgetModalContainer from "./containers/modalContainer";
-
-const LOCAL_STORAGE_KEY = "ResArr";
+import ModalState from "./components/modalState";
+import { LOCAL_STORAGE_KEY } from "./constants/app";
 
 const initFromLocalStorage = (): Array<string> => {
   const localItem: string | null = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -11,6 +10,7 @@ const initFromLocalStorage = (): Array<string> => {
 
 export default function App() {
   const [resultArray, setResultArray] = useState(initFromLocalStorage());
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, resultArray.join(","));
   }, [resultArray]);
@@ -18,6 +18,7 @@ export default function App() {
   const saveResultHandler = (arr: Array<string>): void => {
     setResultArray(arr);
   };
+
   const onRemoveHandler = (item: string): void => {
     const id = resultArray.findIndex((element) => element === item);
     if (id !== -1) {
@@ -29,13 +30,10 @@ export default function App() {
   return (
     <div className="widget">
       <div>Selected items:</div>
-      <div className="select_items_list">
+      <div>
         <ItemsViewList arr={resultArray} onRemove={onRemoveHandler} />
       </div>
-      <WidgetModalContainer
-        resultArray={resultArray}
-        onSave={saveResultHandler}
-      />
+      <ModalState resultArray={resultArray} onSave={saveResultHandler} />
     </div>
   );
 }

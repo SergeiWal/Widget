@@ -2,11 +2,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import STYLES from "../constants/styles";
-import { useModalContext } from "../containers/modalContainer";
-import ModalHeader from "./modalWindowChunks/modalHeader";
-import ModalFilters from "./modalWindowChunks/modalFilters";
-import ModalBody from "./modalWindowChunks/modalBody";
-import ModalFooter from "./modalWindowChunks/modalFooter";
+import { useModalContext } from "./modalState";
+import ModalHeader from "./modalHeader";
+import ModalFilters from "./modalFilters";
+import ModalBody from "./modalBody";
+import ModalFooter from "./modalFooter";
 import { WidgetModalProps } from "../types/types";
 
 export default function WidgetModal({ open }: WidgetModalProps) {

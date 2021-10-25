@@ -6,9 +6,9 @@ export default function ItemsViewList({ arr, onRemove }: ItemViewsListProps) {
   return (
     <div>
       <ul style={STYLES.itemViewList}>
-        {arr.map((item, index) => {
+        {arr.map((item) => {
           return (
-            <li key={index}>
+            <li key={item}>
               <ItemView content={item} onRemove={onRemove} />
             </li>
           );

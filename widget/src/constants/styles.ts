@@ -33,6 +33,7 @@ const STYLES = {
   },
   itemList: {
     height: "320px",
+    width: "220px",
     overflow: "auto",
   },
   ul: {

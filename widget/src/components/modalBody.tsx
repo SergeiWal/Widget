@@ -1,7 +1,7 @@
-import STYLES from "../../constants/styles";
-import ItemsViewList from "../itemViewsList";
-import ItemsList from "../itemsList";
-import { useModalContext } from "../../containers/modalContainer";
+import STYLES from "../constants/styles";
+import ItemsViewList from "./itemViewsList";
+import ItemsList from "./itemsList";
+import { useModalContext } from "./modalState";
 
 export default function ModalBody() {
   const { count, selectedArr, baseArr, onAddHandler, onRemoveHandler } =
@@ -15,7 +15,6 @@ export default function ModalBody() {
           onAdd={onAddHandler}
           onRemove={onRemoveHandler}
         />
-        <div></div>
       </div>
       <div style={STYLES.selectedItemsBox}>
         <div
@@ -27,7 +26,7 @@ export default function ModalBody() {
         >
           Selected items:
         </div>
-        <div className="selected_list">
+        <div>
           <ItemsViewList arr={selectedArr} onRemove={onRemoveHandler} />
         </div>
       </div>

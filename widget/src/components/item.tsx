@@ -1,6 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import STYLES from "../constants/styles";
 import { ItemProps } from "../types/types";
+
+const arrOnChange = (arr: Array<string>, item: string): boolean => {
+  return arr.indexOf(item) !== -1 ? false : true;
+};
 
 export default function Item({
   selectedArr,
@@ -9,14 +13,11 @@ export default function Item({
   filterChange,
   isChecked,
 }: ItemProps) {
-  const arrOnChange = useCallback((): boolean => {
-    return selectedArr.indexOf(content) !== -1 ? false : true;
-  }, [selectedArr, content]);
+  const [isCheck, setCheck] = useState(arrOnChange(selectedArr, content));
 
-  const [isCheck, setCheck] = useState(arrOnChange());
   useEffect(() => {
-    setCheck(arrOnChange());
-  }, [filterChange, arrOnChange]);
+    setCheck(arrOnChange(selectedArr, content));
+  }, [filterChange, selectedArr, content]);
 
   const onChangeHandler = (): void => {
     setCheck(!isCheck);

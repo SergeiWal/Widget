@@ -9,8 +9,8 @@ export default function ItemView({ content, onRemove }: ItemViewProps) {
   };
   return (
     <div style={STYLES.itemView}>
-      <div className="content">{content}</div>
-      <div className="item_btn">
+      <div>{content}</div>
+      <div>
         <Button style={{ color: "black" }} onClick={onClickHandler}>
           <CloseIcon />
         </Button>
