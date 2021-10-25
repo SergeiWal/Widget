@@ -28,9 +28,7 @@ export default function WidgetModalContainer({
   const [baseArr, setBaseArr] = useState(itemsArray);
   const [selectedArr, setSelectedArr] = useState(resultArray); //
   const [count, setCount] = useState(resultArray.length);
-  const [disabled, setDisabled] = useState(
-    selectedArr.length === MAX_COUNT ? true : false
-  );
+  const [disabled, setDisabled] = useState(selectedArr.length === MAX_COUNT);
   const [searchlineValue, setSearchlineValue] = useState("");
   const [filterValue, setFilterValue] = useState(FILTER_ITEMS[0].value);
   const [filterChange, setFilterChange] = useState(false);
