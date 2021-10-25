@@ -2,7 +2,6 @@ import Item from "./item";
 import STYLES from "../constants/styles";
 import { useModalContext } from "./modalState";
 import { ItemsListProps } from "../types/types";
-import { List } from "@mui/material";
 
 export default function ItemsList({
   baseArr,
@@ -21,7 +20,7 @@ export default function ItemsList({
 
   return (
     <div style={STYLES.itemList}>
-      <List style={STYLES.ul}>
+      <ul style={STYLES.ul}>
         {baseArr.map((item) => {
           return (
             <li key={item}>
@@ -35,7 +34,7 @@ export default function ItemsList({
             </li>
           );
         })}
-      </List>
+      </ul>
     </div>
   );
 }
