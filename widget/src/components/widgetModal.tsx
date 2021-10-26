@@ -2,15 +2,14 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import STYLES from "../constants/styles";
-import { useModalContext } from "./modalState";
+import { useAppContext } from "../context/appContext";
 import ModalHeader from "./modalHeader";
 import ModalFilters from "./modalFilters";
 import ModalBody from "./modalBody";
 import ModalFooter from "./modalFooter";
-import { WidgetModalProps } from "../types/types";
 
-export default function WidgetModal({ open }: WidgetModalProps) {
-  const { handleOpen, handleClose } = useModalContext();
+export default function WidgetModal() {
+  const { open, handleOpen, handleClose } = useAppContext();
 
   return (
     <div>

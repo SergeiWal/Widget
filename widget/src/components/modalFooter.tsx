@@ -1,9 +1,9 @@
 import Button from "@mui/material/Button";
 import STYLES from "../constants/styles";
-import { useModalContext } from "./modalState";
+import { useAppContext } from "../context/appContext";
 
 export default function ModalFooter() {
-  const { selectedArr, handleClose, onSave } = useModalContext();
+  const { selectedArr, handleClose, onSave } = useAppContext();
 
   return (
     <div style={STYLES.tools}>

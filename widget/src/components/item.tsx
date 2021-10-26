@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import STYLES from "../constants/styles";
 import { ItemProps } from "../types/types";
-
-const arrOnChange = (arr: Array<string>, item: string): boolean => {
-  return arr.indexOf(item) !== -1 ? false : true;
-};
+import { arrOnChange } from "../services/service";
 
 export default function Item({
   selectedArr,

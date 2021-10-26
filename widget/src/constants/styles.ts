@@ -59,13 +59,15 @@ const STYLES = {
   selectedItemsBox: {
     marginTop: "5px",
     height: "60px",
-    //borderTop: "1px solid #ccc",
   },
   selectedItemsTitleEmpty: {
     display: "none",
   },
   selectedItemsTitle: {
     display: "block",
+  },
+  itemViewButton: {
+    color: "black",
   },
 };
 

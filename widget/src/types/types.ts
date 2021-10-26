@@ -31,10 +31,6 @@ export type ItemViewsListProps = {
   onRemove: (item: string) => void;
 };
 
-export type WidgetModalProps = {
-  open: boolean;
-};
-
 export type FilterItemValue = {
   start: number;
   end: number;
@@ -45,15 +41,12 @@ export type FilterItem = {
   value: FilterItemValue;
 };
 
-export type ModalContainerProps = {
-  onSave: (arr: Array<string>) => void;
-  resultArray: Array<string>;
-};
-
 export type ModalContextType = {
   count: number;
+  open: boolean;
   baseArr: Array<string>;
   selectedArr: Array<string>;
+  resultArr: Array<string>;
   disabled: boolean;
   filterChange: boolean;
   handleOpen: () => void;
@@ -63,4 +56,5 @@ export type ModalContextType = {
   setFilterValue: (value: FilterItemValue) => void;
   onAddHandler: (item: string) => void;
   onRemoveHandler: (item: string) => void;
+  onRemoveFromResultHandler: (item: string) => void;
 };

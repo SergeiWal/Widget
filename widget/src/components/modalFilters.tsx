@@ -2,10 +2,10 @@ import TextField from "@mui/material/TextField";
 import { FILTER_ITEMS } from "../constants/modal";
 import STYLES from "../constants/styles";
 import { MenuItem } from "@mui/material";
-import { useModalContext } from "./modalState";
+import { useAppContext } from "../context/appContext";
 
 export default function ModalFilters() {
-  const { setFilterValue, setSearchlineValue } = useModalContext();
+  const { setFilterValue, setSearchlineValue } = useAppContext();
 
   return (
     <div style={STYLES.tools}>

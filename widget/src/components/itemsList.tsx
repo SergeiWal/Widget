@@ -1,6 +1,6 @@
 import Item from "./item";
 import STYLES from "../constants/styles";
-import { useModalContext } from "./modalState";
+import { useAppContext } from "../context/appContext";
 import { ItemsListProps } from "../types/types";
 
 export default function ItemsList({
@@ -8,7 +8,7 @@ export default function ItemsList({
   onAdd,
   onRemove,
 }: ItemsListProps) {
-  const { selectedArr, disabled, filterChange } = useModalContext();
+  const { selectedArr, disabled, filterChange } = useAppContext();
 
   const isCheckedHandler = (check: boolean, item: string) => {
     if (check) {

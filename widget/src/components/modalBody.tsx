@@ -1,11 +1,11 @@
 import STYLES from "../constants/styles";
 import ItemsViewList from "./itemViewsList";
 import ItemsList from "./itemsList";
-import { useModalContext } from "./modalState";
+import { useAppContext } from "../context/appContext";
 
 export default function ModalBody() {
   const { count, selectedArr, baseArr, onAddHandler, onRemoveHandler } =
-    useModalContext();
+    useAppContext();
 
   return (
     <div style={STYLES.modalBody}>

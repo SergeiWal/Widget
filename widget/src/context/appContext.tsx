@@ -1,28 +1,26 @@
 import React, { useContext, useEffect, useState } from "react";
-import WidgetModal from "./widgetModal";
 import { FILTER_ITEMS } from "../constants/modal";
-import { ModalContextType, ModalContainerProps } from "../types/types";
+import { ModalContextType } from "../types/types";
 import { MAX_COUNT, DEFAULT_CONTEXT_VALUE } from "../constants/container";
-import { ITEMS_AMOUNT } from "../constants/app";
+import { LOCAL_STORAGE_KEY } from "../constants/app";
+import { initFromLocalStorage, getItemsArray } from "../services/service";
+import App from "../components/App";
 
 const ModalContext = React.createContext<ModalContextType>(
   DEFAULT_CONTEXT_VALUE
 );
-export const useModalContext = () => useContext(ModalContext);
+export const useAppContext = () => useContext(ModalContext);
 
-const itemsArray: Array<string> = [];
-for (let i: number = 1; i <= ITEMS_AMOUNT; ++i) {
-  itemsArray.push(`Item ${i}`);
-}
+const itemsArray: Array<string> = getItemsArray();
 
-export default function ModalState({
-  onSave,
-  resultArray,
-}: ModalContainerProps) {
+export default function AppContext() {
   const [open, setOpen] = useState(false);
   const [baseArr, setBaseArr] = useState(itemsArray);
-  const [selectedArr, setSelectedArr] = useState(resultArray);
-  const [count, setCount] = useState(resultArray.length);
+  const [resultArr, setResultArray] = useState(
+    initFromLocalStorage(LOCAL_STORAGE_KEY)
+  );
+  const [selectedArr, setSelectedArr] = useState(resultArr);
+  const [count, setCount] = useState(resultArr.length);
   const [disabled, setDisabled] = useState(selectedArr.length === MAX_COUNT);
   const [searchlineValue, setSearchlineValue] = useState("");
   const [filterValue, setFilterValue] = useState(FILTER_ITEMS[0].value);
@@ -44,14 +42,20 @@ export default function ModalState({
     setCount(selectedArr.length);
   }, [selectedArr]);
 
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, resultArr.join(","));
+  }, [resultArr]);
+
   const handleOpen = (): void => {
     setOpen(true);
     setBaseArr(itemsArray);
-    setSelectedArr(resultArray);
+    setSelectedArr([...resultArr]);
   };
+
   const handleClose = (): void => {
     setOpen(false);
   };
+
   const onAddHandler = (item: string): void => {
     if (count < MAX_COUNT) {
       setSelectedArr([...selectedArr, item]);
@@ -59,6 +63,7 @@ export default function ModalState({
       if (count >= 2) setDisabled(true);
     }
   };
+
   const onRemoveHandler = (item: string): void => {
     const id = selectedArr.findIndex((element) => element === item);
     if (id !== -1) {
@@ -69,9 +74,23 @@ export default function ModalState({
     }
   };
 
+  const onSave = (arr: Array<string>): void => {
+    setResultArray(arr);
+  };
+
+  const onRemoveFromResultHandler = (item: string): void => {
+    const id = resultArr.findIndex((element) => element === item);
+    if (id !== -1) {
+      resultArr.splice(id, 1);
+      setResultArray([...resultArr]);
+    }
+  };
+
   const ModalContextValue: ModalContextType = {
+    open,
     baseArr,
     selectedArr,
+    resultArr,
     count,
     disabled,
     filterChange,
@@ -82,11 +101,12 @@ export default function ModalState({
     setFilterValue,
     onAddHandler,
     onRemoveHandler,
+    onRemoveFromResultHandler,
   };
 
   return (
     <ModalContext.Provider value={ModalContextValue}>
-      <WidgetModal open={open} />
+      <App />
     </ModalContext.Provider>
   );
 }
