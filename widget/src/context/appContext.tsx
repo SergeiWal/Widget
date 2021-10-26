@@ -4,7 +4,7 @@ import { ModalContextType } from "../types/types";
 import { MAX_COUNT, DEFAULT_CONTEXT_VALUE } from "../constants/container";
 import { LOCAL_STORAGE_KEY } from "../constants/app";
 import { initFromLocalStorage, getItemsArray } from "../services/service";
-import App from "../components/App";
+import App from "../components/app";
 
 const ModalContext = React.createContext<ModalContextType>(
   DEFAULT_CONTEXT_VALUE
